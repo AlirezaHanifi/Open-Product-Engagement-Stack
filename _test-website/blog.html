@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Analytics Test</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Analytics Test</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="blog.html" class="active">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Analytics Insights Blog</h1>
+            <p>Articles and guides about web analytics and tracking</p>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container">
+            <div class="blog-grid">
+                <article class="blog-post">
+                    <h2>Getting Started with Web Analytics</h2>
+                    <div class="post-meta">
+                        <span class="date">November 2025</span>
+                        <span class="category">Tutorial</span>
+                    </div>
+                    <p>Web analytics is the process of collecting, processing, and analyzing data about website visitors and their behavior. Understanding your website's analytics helps you make informed decisions about your business and marketing strategies.</p>
+                    <p>In this guide, we'll explore the fundamentals of web analytics, including key metrics, tracking methods, and best practices for implementation.</p>
+                    <button class="read-btn" data-post="post-1">Read Full Article</button>
+                </article>
+
+                <article class="blog-post">
+                    <h2>Understanding User Behavior Patterns</h2>
+                    <div class="post-meta">
+                        <span class="date">November 2025</span>
+                        <span class="category">Analysis</span>
+                    </div>
+                    <p>User behavior patterns reveal how visitors interact with your website. By analyzing these patterns, you can optimize your site's layout, content, and features to improve user experience and achieve your business goals.</p>
+                    <p>Learn about heatmaps, session recordings, scroll depth analysis, and user journey mapping to better understand visitor behavior.</p>
+                    <button class="read-btn" data-post="post-2">Read Full Article</button>
+                </article>
+
+                <article class="blog-post">
+                    <h2>Conversion Rate Optimization Strategies</h2>
+                    <div class="post-meta">
+                        <span class="date">November 2025</span>
+                        <span class="category">Strategy</span>
+                    </div>
+                    <p>Conversion rate optimization (CRO) is the process of increasing the percentage of visitors who complete a desired action on your website. Even small improvements in conversion rates can lead to significant increases in revenue.</p>
+                    <p>Discover proven strategies including A/B testing, funnel analysis, form optimization, and call-to-action improvements.</p>
+                    <button class="read-btn" data-post="post-3">Read Full Article</button>
+                </article>
+
+                <article class="blog-post">
+                    <h2>GDPR Compliance and Privacy-First Analytics</h2>
+                    <div class="post-meta">
+                        <span class="date">November 2025</span>
+                        <span class="category">Privacy</span>
+                    </div>
+                    <p>With privacy regulations like GDPR becoming more stringent, companies need to adopt privacy-first analytics solutions. Learn how to track user behavior while respecting user privacy and complying with regulations.</p>
+                    <p>Explore privacy-friendly alternatives to Google Analytics, including Matomo, Plausible, and other GDPR-compliant solutions.</p>
+                    <button class="read-btn" data-post="post-4">Read Full Article</button>
+                </article>
+
+                <article class="blog-post">
+                    <h2>Mobile Analytics Best Practices</h2>
+                    <div class="post-meta">
+                        <span class="date">October 2025</span>
+                        <span class="category">Mobile</span>
+                    </div>
+                    <p>With mobile traffic continuing to grow, understanding mobile user behavior is crucial. Mobile analytics differs from desktop analytics due to different user behaviors, device capabilities, and interaction patterns.</p>
+                    <p>Learn how to set up mobile analytics, track app events, and optimize for mobile user experience.</p>
+                    <button class="read-btn" data-post="post-5">Read Full Article</button>
+                </article>
+
+                <article class="blog-post">
+                    <h2>E-commerce Analytics and Sales Tracking</h2>
+                    <div class="post-meta">
+                        <span class="date">October 2025</span>
+                        <span class="category">E-commerce</span>
+                    </div>
+                    <p>E-commerce analytics focuses on tracking transactions, product performance, and customer lifetime value. By understanding your sales funnel, you can identify bottlenecks and optimize for more conversions.</p>
+                    <p>Implement product tracking, transaction tracking, and customer journey analysis to maximize your e-commerce revenue.</p>
+                    <button class="read-btn" data-post="post-6">Read Full Article</button>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Analytics Test Website. All rights reserved.</p>
+            <p>Used for testing Matomo and other analytics platforms</p>
+        </div>
+    </footer>
+
+    <script src="js/analytics.js"></script>
+    <script src="js/tracking.js"></script>
+
+    <script>
+        const matomoConfig = {
+            baseUrl: "http://localhost/",
+            siteId: 1
+        };
+
+        window._paq = window._paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['trackAllContentImpressions']);
+        _paq.push(['trackAllOutlinks']);
+        _paq.push(['enableLinkTracking']);
+        _paq.push(['setDocumentTitle', document.title]);
+
+        (function() {
+            _paq.push(['setTrackerUrl', matomoConfig.baseUrl + 'matomo.php']);
+            _paq.push(['setSiteId', matomoConfig.siteId]);
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = matomoConfig.baseUrl + 'matomo.js';
+            document.getElementsByTagName('script')[0].parentNode.insertBefore(script, document.getElementsByTagName('script')[0]);
+        })();
+    </script>
+
+    <noscript>
+        <p><img src="http://localhost/matomo.php?idsite=1&amp;rec=1" style="border:0" alt="" /></p>
+    </noscript>
+</body>
+</html>

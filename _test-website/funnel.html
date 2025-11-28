@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversion Funnel - Analytics Test</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .funnel-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .funnel-container {
+            max-width: 800px;
+            margin: 3rem auto;
+        }
+
+        .funnel-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: var(--dark-color);
+        }
+
+        .funnel-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .funnel-step {
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin: 0;
+        }
+
+        .funnel-bar {
+            flex: 1;
+            padding: 1.5rem;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+        }
+
+        .funnel-bar:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .funnel-step:nth-child(1) .funnel-bar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 100%;
+        }
+
+        .funnel-step:nth-child(2) .funnel-bar {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            width: 85%;
+        }
+
+        .funnel-step:nth-child(3) .funnel-bar {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            width: 72%;
+        }
+
+        .funnel-step:nth-child(4) .funnel-bar {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            width: 58%;
+        }
+
+        .funnel-step:nth-child(5) .funnel-bar {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            width: 42%;
+        }
+
+        .step-label {
+            font-size: 0.95rem;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.5rem;
+            font-weight: bold;
+        }
+
+        .funnel-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .drop-off {
+            color: var(--danger-color);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .funnel-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .funnel-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .funnel-btn:hover {
+            background-color: #0052a3;
+            transform: translateY(-2px);
+        }
+
+        .metrics-display {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .metrics-display h4 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Analytics Test</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="funnel.html" class="active">Funnel</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Conversion Funnel</h1>
+            <p>Track your user journey from start to conversion</p>
+        </div>
+    </section>
+
+    <section class="funnel-section">
+        <div class="container">
+            <div class="funnel-container">
+                <h2 class="funnel-title">Your Conversion Funnel</h2>
+                
+                <div class="funnel-chart" id="funnel-chart">
+                    <div class="funnel-step" data-step="1">
+                        <div class="funnel-bar">
+                            <span class="step-label">
+                                <span class="step-number">1</span>
+                                <strong>Page Views</strong>
+                            </span>
+                            <span>10,000</span>
+                        </div>
+                    </div>
+                    <div class="funnel-step" data-step="2">
+                        <div class="funnel-bar">
+                            <span class="step-label">
+                                <span class="step-number">2</span>
+                                <strong>Product View</strong>
+                            </span>
+                            <span>8,500 (85%)</span>
+                        </div>
+                    </div>
+                    <div class="funnel-step" data-step="3">
+                        <div class="funnel-bar">
+                            <span class="step-label">
+                                <span class="step-number">3</span>
+                                <strong>Pricing View</strong>
+                            </span>
+                            <span>7,200 (72%)</span>
+                        </div>
+                    </div>
+                    <div class="funnel-step" data-step="4">
+                        <div class="funnel-bar">
+                            <span class="step-label">
+                                <span class="step-number">4</span>
+                                <strong>Plan Selected</strong>
+                            </span>
+                            <span>5,800 (58%)</span>
+                        </div>
+                    </div>
+                    <div class="funnel-step" data-step="5">
+                        <div class="funnel-bar">
+                            <span class="step-label">
+                                <span class="step-number">5</span>
+                                <strong>Conversion</strong>
+                            </span>
+                            <span>4,200 (42%)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metrics-display">
+                    <h4>Funnel Metrics</h4>
+                    <div class="metric-row">
+                        <span>Stage 1 → Stage 2:</span>
+                        <span><strong>85%</strong> <span class="drop-off">(-15%)</span></span>
+                    </div>
+                    <div class="metric-row">
+                        <span>Stage 2 → Stage 3:</span>
+                        <span><strong>84.7%</strong> <span class="drop-off">(-15.3%)</span></span>
+                    </div>
+                    <div class="metric-row">
+                        <span>Stage 3 → Stage 4:</span>
+                        <span><strong>80.6%</strong> <span class="drop-off">(-19.4%)</span></span>
+                    </div>
+                    <div class="metric-row">
+                        <span>Stage 4 → Stage 5:</span>
+                        <span><strong>72.4%</strong> <span class="drop-off">(-27.6%)</span></span>
+                    </div>
+                    <div class="metric-row" style="border-top: 2px solid var(--primary-color); margin-top: 1rem; padding-top: 1rem;">
+                        <span>Overall Conversion Rate:</span>
+                        <span><strong style="color: var(--success-color);">42%</strong></span>
+                    </div>
+                </div>
+
+                <div class="funnel-actions">
+                    <button class="funnel-btn" id="simulate-btn">Simulate Funnel Step</button>
+                    <button class="funnel-btn" id="reset-btn" style="background-color: var(--secondary-color);">Reset Funnel</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container">
+            <h2>Understanding Your Funnel</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>📊 Analyze Drop-offs</h3>
+                    <p>Identify where users drop off in your conversion process and optimize those stages for better conversion rates.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎯 Focus on Bottlenecks</h3>
+                    <p>The largest drop-offs in your funnel should be your priority. Focus on improving the critical stages.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>💡 Test and Iterate</h3>
+                    <p>Run A/B tests on different funnel stages to find what works best for your audience.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📈 Track Progress</h3>
+                    <p>Monitor your funnel metrics over time to measure the impact of your optimization efforts.</p>
+                </div>
+            </div>
+
+            <h2 style="margin-top: 3rem;">Funnel Best Practices</h2>
+            <ul style="font-size: 1.1rem; line-height: 2;">
+                <li><strong>Keep it simple:</strong> Limit your funnel to 4-6 critical steps. More steps mean more places to drop off.</li>
+                <li><strong>Clear messaging:</strong> Each step should have a clear value proposition. Tell users why they should move forward.</li>
+                <li><strong>Remove friction:</strong> Simplify forms, reduce required fields, and make the next step obvious.</li>
+                <li><strong>Optimize high drop-off stages:</strong> Focus your resources on improving the stages with the highest abandonment rates.</li>
+                <li><strong>Mobile optimization:</strong> Ensure your funnel is fully optimized for mobile users.</li>
+                <li><strong>Consistent testing:</strong> Continuously test different approaches and measure their impact on conversion rates.</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Analytics Test Website</p>
+        </div>
+    </footer>
+
+    <!-- Matomo -->
+    <script>
+        var _paq = window._paq = window._paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+            var u="//localhost/";
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+            _paq.push(['setSiteId', '2']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+    <!-- End Matomo Code -->
+
+    <script src="js/main.js"></script>
+    <script>
+        let currentStep = 0;
+        const funnelSteps = ['page_view', 'product_view', 'pricing_view', 'plan_selected', 'conversion'];
+        
+        document.getElementById('simulate-btn').addEventListener('click', function() {
+            if (currentStep < funnelSteps.length) {
+                const step = funnelSteps[currentStep];
+                const stepNumber = currentStep + 1;
+                
+                trackEvent('Funnel', 'Step Completed', step, stepNumber);
+                trackFunnelStep(step, 'User ' + Math.floor(Math.random() * 1000));
+                
+                // Highlight the current step
+                document.querySelectorAll('.funnel-step').forEach((el, i) => {
+                    if (i === currentStep) {
+                        el.style.opacity = '1';
+                        el.querySelector('.funnel-bar').style.boxShadow = '0 0 20px rgba(0, 102, 204, 0.5)';
+                    }
+                });
+                
+                currentStep++;
+                
+                if (currentStep === funnelSteps.length) {
+                    alert('Congratulations! User completed the entire funnel!');
+                    trackEvent('Funnel', 'Conversion Complete', 'Full Funnel');
+                }
+            }
+        });
+
+        document.getElementById('reset-btn').addEventListener('click', function() {
+            currentStep = 0;
+            document.querySelectorAll('.funnel-step').forEach(el => {
+                el.style.opacity = '1';
+                el.querySelector('.funnel-bar').style.boxShadow = 'var(--shadow)';
+            });
+            trackEvent('Funnel', 'Reset', 'Funnel Reset');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Analytics Test Website</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">Analytics Test Site</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>About Analytics Testing</h1>
+            <p>Understanding how analytics platforms collect and report data</p>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container">
+            <h2>Purpose of This Site</h2>
+            <p>This test website was created to provide a realistic environment for evaluating analytics platforms like Matomo, Google Analytics, and other tracking tools. It's designed to generate authentic user behavior data and demonstrate various tracking capabilities.</p>
+
+            <h2>Key Metrics We Track</h2>
+            <div class="metrics-grid">
+                <div class="metric-box">
+                    <h3>Page Views</h3>
+                    <p>Track how many times each page is viewed and the sequence of page visits.</p>
+                </div>
+                <div class="metric-box">
+                    <h3>User Sessions</h3>
+                    <p>Monitor session duration, frequency, and returning visitor patterns.</p>
+                </div>
+                <div class="metric-box">
+                    <h3>Event Tracking</h3>
+                    <p>Capture custom events triggered by specific user interactions.</p>
+                </div>
+                <div class="metric-box">
+                    <h3>Conversions</h3>
+                    <p>Track goal completions and conversion funnel performance.</p>
+                </div>
+                <div class="metric-box">
+                    <h3>User Flow</h3>
+                    <p>Analyze the paths users take through the website.</p>
+                </div>
+                <div class="metric-box">
+                    <h3>Device & Browser</h3>
+                    <p>Collect information about devices, browsers, and operating systems.</p>
+                </div>
+            </div>
+
+            <h2>How Analytics Tracking Works</h2>
+            <ol>
+                <li><strong>JavaScript Code:</strong> A tracking script is embedded in your website</li>
+                <li><strong>User Events:</strong> The script captures user interactions like page views and clicks</li>
+                <li><strong>Data Collection:</strong> Events are sent to the analytics server</li>
+                <li><strong>Processing:</strong> Data is processed and aggregated</li>
+                <li><strong>Reporting:</strong> Insights are presented in dashboards and reports</li>
+            </ol>
+
+            <h2>Privacy & GDPR Compliance</h2>
+            <p>This test site uses Matomo, which is GDPR-compliant and privacy-focused. It allows for:</p>
+            <ul>
+                <li>Anonymous IP addresses (IP masking)</li>
+                <li>User opt-out capabilities</li>
+                <li>Cookie consent management</li>
+                <li>Data retention policies</li>
+                <li>Self-hosted analytics (no third-party tracking)</li>
+            </ul>
+
+            <h2>Testing Different Scenarios</h2>
+            <p>Use this site to test various analytics scenarios:</p>
+            <ul>
+                <li>Fresh visitor journey (new session)</li>
+                <li>Returning visitor behavior</li>
+                <li>Form submission tracking</li>
+                <li>Cross-page navigation patterns</li>
+                <li>User engagement metrics</li>
+                <li>Bounce rate calculations</li>
+            </ul>
+
+            <div class="cta-section">
+                <h3>Ready to Explore?</h3>
+                <a href="blog.html" class="cta-button">Visit Our Blog</a>
+                <a href="contact.html" class="cta-button secondary">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Analytics Test Website. All rights reserved.</p>
+            <p>Used for testing Matomo and other analytics platforms</p>
+        </div>
+    </footer>
+
+    <script src="js/analytics.js"></script>
+    <script src="js/tracking.js"></script>
+
+    <script>
+        const matomoConfig = {
+            baseUrl: "http://localhost/",
+            siteId: 1
+        };
+
+        window._paq = window._paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['trackAllContentImpressions']);
+        _paq.push(['trackAllOutlinks']);
+        _paq.push(['enableLinkTracking']);
+        _paq.push(['setDocumentTitle', document.title]);
+
+        (function() {
+            _paq.push(['setTrackerUrl', matomoConfig.baseUrl + 'matomo.php']);
+            _paq.push(['setSiteId', matomoConfig.siteId]);
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = matomoConfig.baseUrl + 'matomo.js';
+            document.getElementsByTagName('script')[0].parentNode.insertBefore(script, document.getElementsByTagName('script')[0]);
+        })();
+    </script>
+
+    <noscript>
+        <p><img src="http://localhost/matomo.php?idsite=1&amp;rec=1" style="border:0" alt="" /></p>
+    </noscript>
+</body>
+</html>

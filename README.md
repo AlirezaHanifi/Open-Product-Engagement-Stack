@@ -18,93 +18,40 @@ All candidates in this repository are evaluated against these five non-negotiabl
 
 ## Repository Structure
 
-Each tool is isolated to ensure unbiased performance testing. No shared services or databases exist between modules.
+The repository is organized as a collection of isolated services. Each directory represents a self-contained module—whether it is an analytics suite, an ingestion pipeline, or a traffic generator—ensuring unbiased performance testing with no shared dependencies.
 
 ```text
 Open-Product-Engagement-Stack
 │
-├── countly/
-├── jitsu/
-├── matomo/
-├── openreplay/
-├── posthog/
-├── rudderstack/
+├── _test-website/      # Service: Traffic Generator & Tracking Verification
+├── countly/            # Service: Analytics Candidate
+├── jitsu/              # Service: Ingestion Candidate
+├── matomo/             # Service: Analytics Candidate
+├── openreplay/         # Service: Analytics Candidate
+├── posthog/            # Service: Analytics Candidate
+├── rudderstack/        # Service: Ingestion Candidate
 └── README.md
-```
+````
 
-Each candidate directory contains:
+### Service Descriptions
 
-  * `k8s/`: Production-ready Kubernetes manifests (Helm charts/YAMLs).
-  * `docker/`: Minimal Docker Compose for local functionality verification.
-  * `docs/`: Specific notes on architecture and resource requirements.
+  * **Analytics & Ingestion Services:** Each candidate directory contains `k8s/` manifests for production and `docker/` compose files for local verification, along with specific architectural documentation.
+  * **Traffic Generator (`_test-website`):** A standalone service responsible for generating synthetic user traffic. It includes a static site, tracking snippets, and Nginx configuration. It is used to simulate user journeys locally to verify that the analytics containers are receiving and visualizing data correctly.
 
 -----
 
 ## Candidate Tools
 
-### Analytics Suites (Dashboard + Storage)
+The following tools are being benchmarked. The list includes full Analytics Suites (Dashboard + Storage) and pure Ingestion Pipelines.
 
-**Countly**
-
-  * **Website:** [countly.com](https://countly.com) | **Repo:** [github.com/Countly/countly-server](https://github.com/Countly/countly-server)
-  * **Focus:** Mobile and web analytics with extensive plugin architecture.
-  * **Backend:** MongoDB.
-  * **Why it’s here:** Granular user-level tracking and extensible plugin system.
-  * **Community Feedback:**
-      * *Pros:* Excellent mobile SDKs, lightweight footprint, and a highly intuitive UI for non-technical users.
-      * *Cons:* Documentation for Android/IoT is sometimes reported as less comprehensive than iOS; high resource consumption (RAM) at enterprise scale.
-
-**Matomo**
-
-  * **Website:** [matomo.org](https://matomo.org) | **Repo:** [github.com/matomo-org/matomo](https://github.com/matomo-org/matomo)
-  * **Focus:** Privacy-compliant web analytics.
-  * **Backend:** MySQL/MariaDB.
-  * **Why it’s here:** Strong compliance features and mature dashboarding capabilities.
-  * **Community Feedback:**
-      * *Pros:* The "gold standard" for data ownership and GDPR compliance; easy setup compared to others (PHP/MySQL).
-      * *Cons:* UI performance can degrade significantly with huge datasets; the interface feels less "modern" compared to newer product analytics tools.
-
-**OpenReplay**
-
-  * **Website:** [openreplay.com](https://openreplay.com) | **Repo:** [github.com/openreplay/openreplay](https://github.com/openreplay/openreplay)
-  * **Focus:** Qualitative analysis via session replay (DOM + Network recording).
-  * **Backend:** PostgreSQL, Redis, MinIO, ClickHouse.
-  * **Why it’s here:** Critical for debugging user journeys and visual verification of quantitative data.
-  * **Community Feedback:**
-      * *Pros:* Best-in-class self-hosted session recording; "DevTools" features (network tab, console logs) are incredibly useful for debugging.
-      * *Cons:* High storage requirements for recording data; deployment complexity is high due to the number of microservices involved.
-
-**PostHog**
-
-  * **Website:** [posthog.com](https://posthog.com) | **Repo:** [github.com/PostHog/posthog](https://github.com/PostHog/posthog)
-  * **Focus:** Full-suite product analytics (Funnels, Cohorts, Feature Flags).
-  * **Backend:** ClickHouse (optimized for high-volume aggregation).
-  * **Why it’s here:** Industry standard for open-source product analytics with raw SQL access.
-  * **Community Feedback:**
-      * *Pros:* Unmatched feature set (flags, experiments, heatmaps in one tool); direct SQL access to ClickHouse is powerful for data teams.
-      * *Cons:* Self-hosting at scale (\>100k events/month) is operationally heavy; Kubernetes support is community-maintained and complex to tune.
-
-### Ingestion Pipelines (Optional Support)
-
-*While these lack native analysis dashboards, they are benchmarked for their ability to feed data into the suites above.*
-
-**Jitsu**
-
-  * **Website:** [jitsu.com](https://jitsu.com) | **Repo:** [github.com/jitsucom/jitsu](https://github.com/jitsucom/jitsu)
-  * **Focus:** High-performance event ingestion and routing.
-  * **Role:** Benchmarked solely as "Ingestion Layers" to decouple tracking from storage if the main suite's ingestion bottlenecks.
-  * **Community Feedback:**
-      * *Pros:* Extremely fast ingestion; highly scriptable (JavaScript transforms); simple Docker deployment.
-      * *Cons:* Smaller community ecosystem compared to RudderStack; less "enterprise" polish on documentation.
-
-**RudderStack**
-
-  * **Website:** [rudderstack.com](https://rudderstack.com) | **Repo:** [github.com/rudderlabs/rudder-server](https://github.com/rudderlabs/rudder-server)
-  * **Focus:** High-performance event ingestion and routing (Segment alternative).
-  * **Role:** Benchmarked solely as "Ingestion Layers" to decouple tracking from storage.
-  * **Community Feedback:**
-      * *Pros:* Developer-friendly "warehouse-first" approach; extensive library of SDKs and integrations.
-      * *Cons:* Steep learning curve; the self-hosted Control Plane is often confusing to configure compared to using their managed Control Plane.
+| Tool | Focus & Tech Stack | GitHub Stars | Demo | Pros | Cons |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **[PostHog](https://posthog.com)** | **Product Suite**<br>*(ClickHouse, Postgres, Redis, Kafka)* | ![Stars](https://img.shields.io/github/stars/PostHog/posthog?style=flat) | [Link](https://posthog.com/demo) | Unmatched feature set (Flags, Heatmaps, Session Rec); Direct SQL access to ClickHouse. | High operational overhead at scale (\>100k events/mo); K8s maintenance is complex. |
+| **[Matomo](https://matomo.org)** | **Web Analytics**<br>*(MySQL/MariaDB, PHP)* | ![Stars](https://img.shields.io/github/stars/matomo-org/matomo?style=flat) | [Link](https://demo.matomo.cloud/) | "Gold standard" for GDPR/Compliance; Mature data ownership model; Easy setup. | UI performance degrades with massive datasets; Interface feels legacy/dated. |
+| **[OpenReplay](https://openreplay.com)** | **Session Replay**<br>*(Postgres, Redis, ClickHouse, MinIO)* | ![Stars](https://img.shields.io/github/stars/openreplay/openreplay?style=flat) | | Best self-hosted replay; Includes DevTools (Network/Console logs) for debugging. | High storage requirements (DOM/Video data); Complex microservice architecture. |
+| **[Countly](https://countly.com)** | **Mobile & IoT**<br>*(MongoDB, Node.js)* | ![Stars](https://img.shields.io/github/stars/Countly/countly-server?style=flat) | [Link](https://countly.com/demo) | Excellent Mobile SDKs; Granular user-level tracking; Extensible plugin system. | High RAM usage at scale; Android documentation lags behind iOS. |
+| **[RudderStack](https://rudderstack.com)** | **CDP / Routing**<br>*(Postgres [Config], Warehouse [Data])* | ![Stars](https://img.shields.io/github/stars/rudderlabs/rudder-server?style=flat) | [Link](https://www.rudderstack.com/resources/interactive-demo/) | Warehouse-first approach; Extensive integration library; Decouples data from tools. | Steep learning curve; Self-hosted control plane is complex to configure. |
+| **[Jitsu](https://jitsu.com)** | **Ingestion / ETL**<br>*(Redis, Go, Warehouse destination)* | ![Stars](https://img.shields.io/github/stars/jitsucom/jitsu?style=flat) | | Extremely fast ingestion; Scriptable JS transforms; Simple Docker deployment. | Smaller community ecosystem; Documentation is less "enterprise" polished. |
 
 -----
 

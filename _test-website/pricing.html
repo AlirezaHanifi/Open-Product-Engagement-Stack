@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - Analytics Test</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Analytics Test</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="pricing.html" class="active">Pricing</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Simple, Transparent Pricing</h1>
+            <p>Choose the perfect plan for your needs</p>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container">
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <p class="pricing-price">$29<span>/month</span></p>
+                    <p class="pricing-description">Perfect for getting started</p>
+                    <ul class="pricing-features">
+                        <li>✓ Up to 10,000 events/month</li>
+                        <li>✓ Basic reports</li>
+                        <li>✓ Email support</li>
+                        <li>✗ API access</li>
+                        <li>✗ Custom dashboards</li>
+                    </ul>
+                    <button class="pricing-btn" data-plan="Starter">Choose Plan</button>
+                </div>
+
+                <div class="pricing-card highlighted">
+                    <div class="best-value">BEST VALUE</div>
+                    <h3>Professional</h3>
+                    <p class="pricing-price">$79<span>/month</span></p>
+                    <p class="pricing-description">For growing businesses</p>
+                    <ul class="pricing-features">
+                        <li>✓ Up to 100,000 events/month</li>
+                        <li>✓ Advanced reports</li>
+                        <li>✓ Priority support</li>
+                        <li>✓ API access</li>
+                        <li>✓ Custom dashboards</li>
+                    </ul>
+                    <button class="pricing-btn" data-plan="Professional">Choose Plan</button>
+                </div>
+
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <p class="pricing-price">Custom<span></span></p>
+                    <p class="pricing-description">For large scale operations</p>
+                    <ul class="pricing-features">
+                        <li>✓ Unlimited events</li>
+                        <li>✓ Advanced analytics</li>
+                        <li>✓ 24/7 dedicated support</li>
+                        <li>✓ Custom integrations</li>
+                        <li>✓ SLA guarantee</li>
+                    </ul>
+                    <button class="pricing-btn" data-plan="Enterprise">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content" style="background-color: var(--light-color);">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h4>Can I change my plan anytime?</h4>
+                    <p>Yes! You can upgrade or downgrade your plan at any time. Changes take effect immediately.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Do you offer annual discounts?</h4>
+                    <p>Yes, save 20% when you choose annual billing. Contact our sales team for details.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>What payment methods do you accept?</h4>
+                    <p>We accept all major credit cards, PayPal, and bank transfers for enterprise accounts.</p>
+                </div>
+                <div class="faq-item">
+                    <h4>Is there a free trial?</h4>
+                    <p>Absolutely! Try any plan free for 14 days. No credit card required.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h3>Still have questions?</h3>
+            <p>Our team is here to help you find the perfect solution</p>
+            <a href="contact.html" class="cta-button">Contact Us</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Analytics Test Website</p>
+        </div>
+    </footer>
+
+    <!-- Matomo -->
+    <script>
+        var _paq = window._paq = window._paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+            var u="//localhost/";
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+            _paq.push(['setSiteId', '2']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+    <!-- End Matomo Code -->
+
+    <script src="js/main.js"></script>
+    <script>
+        document.querySelectorAll('.pricing-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const plan = this.getAttribute('data-plan');
+                trackEvent('Pricing', 'Plan Selected', plan);
+                trackFunnelStep('pricing_view', plan);
+                if (plan === 'Enterprise') {
+                    alert(`Redirecting to contact sales for ${plan} plan...`);
+                } else {
+                    alert(`You selected the ${plan} plan`);
+                    trackFunnelStep('plan_selected', plan);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

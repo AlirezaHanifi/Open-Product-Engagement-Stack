@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Analytics Test Website</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Analytics Test</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Get In Touch</h1>
+            <p>We'd love to hear from you. Send us a message!</p>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container">
+            <div class="contact-wrapper">
+                <div class="contact-form-section">
+                    <h2>Send us a Message</h2>
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject *</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" rows="6" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="interest">Interest *</label>
+                            <select id="interest" name="interest" required>
+                                <option value="">-- Select --</option>
+                                <option value="general">General Inquiry</option>
+                                <option value="support">Support</option>
+                                <option value="partnership">Partnership</option>
+                                <option value="feedback">Feedback</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group checkbox">
+                            <input type="checkbox" id="consent" name="consent" required>
+                            <label for="consent">I consent to being contacted about my inquiry *</label>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                    <div id="form-message" class="form-message" style="display: none;"></div>
+                </div>
+
+                <div class="contact-info-section">
+                    <h2>Contact Information</h2>
+                    
+                    <div class="info-box">
+                        <h3>Email</h3>
+                        <p>
+                            <a href="mailto:info@example.com">info@example.com</a>
+                        </p>
+                    </div>
+
+                    <div class="info-box">
+                        <h3>Phone</h3>
+                        <p>+1 (555) 123-4567</p>
+                    </div>
+
+                    <div class="info-box">
+                        <h3>Address</h3>
+                        <p>
+                            123 Analytics Street<br>
+                            Data City, DC 12345<br>
+                            United States
+                        </p>
+                    </div>
+
+                    <div class="info-box">
+                        <h3>Hours</h3>
+                        <p>
+                            Monday - Friday: 9:00 AM - 5:00 PM<br>
+                            Saturday: 10:00 AM - 2:00 PM<br>
+                            Sunday: Closed
+                        </p>
+                    </div>
+
+                    <div class="social-links">
+                        <h3>Follow Us</h3>
+                        <a href="#" class="social-btn">Twitter</a>
+                        <a href="#" class="social-btn">LinkedIn</a>
+                        <a href="#" class="social-btn">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Analytics Test Website. All rights reserved.</p>
+            <p>Used for testing Matomo and other analytics platforms</p>
+        </div>
+    </footer>
+
+    <script src="js/analytics.js"></script>
+    <script src="js/tracking.js"></script>
+
+    <script>
+        const matomoConfig = {
+            baseUrl: "http://localhost/",
+            siteId: 1
+        };
+
+        window._paq = window._paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['trackAllContentImpressions']);
+        _paq.push(['trackAllOutlinks']);
+        _paq.push(['enableLinkTracking']);
+        _paq.push(['setDocumentTitle', document.title]);
+
+        (function() {
+            _paq.push(['setTrackerUrl', matomoConfig.baseUrl + 'matomo.php']);
+            _paq.push(['setSiteId', matomoConfig.siteId]);
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = matomoConfig.baseUrl + 'matomo.js';
+            document.getElementsByTagName('script')[0].parentNode.insertBefore(script, document.getElementsByTagName('script')[0]);
+        })();
+    </script>
+
+    <noscript>
+        <p><img src="http://localhost/matomo.php?idsite=1&amp;rec=1" style="border:0" alt="" /></p>
+    </noscript>
+</body>
+</html>

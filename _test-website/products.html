@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Analytics Test</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Analytics Test</a>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Our Products</h1>
+            <p>Discover our amazing product lineup</p>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container">
+            <h2>Featured Products</h2>
+            
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                    <h3>Product One</h3>
+                    <p class="price">$29.99/month</p>
+                    <p>Premium analytics and reporting features for small businesses.</p>
+                    <ul class="product-features">
+                        <li>✓ Real-time analytics</li>
+                        <li>✓ Custom dashboards</li>
+                        <li>✓ Email reports</li>
+                        <li>✓ Basic support</li>
+                    </ul>
+                    <button class="product-btn" data-product="Product One" data-price="29.99">Learn More</button>
+                </div>
+
+                <div class="product-card featured">
+                    <div class="badge">POPULAR</div>
+                    <div class="product-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);"></div>
+                    <h3>Product Two</h3>
+                    <p class="price">$79.99/month</p>
+                    <p>Advanced analytics with AI-powered insights for growing teams.</p>
+                    <ul class="product-features">
+                        <li>✓ All Product One features</li>
+                        <li>✓ AI recommendations</li>
+                        <li>✓ API access</li>
+                        <li>✓ Priority support</li>
+                    </ul>
+                    <button class="product-btn" data-product="Product Two" data-price="79.99">Learn More</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);"></div>
+                    <h3>Product Three</h3>
+                    <p class="price">$199.99/month</p>
+                    <p>Enterprise solution with white-label and custom integrations.</p>
+                    <ul class="product-features">
+                        <li>✓ All Product Two features</li>
+                        <li>✓ White-label option</li>
+                        <li>✓ Custom integrations</li>
+                        <li>✓ 24/7 dedicated support</li>
+                    </ul>
+                    <button class="product-btn" data-product="Product Three" data-price="199.99">Learn More</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content" style="background-color: var(--light-color);">
+        <div class="container">
+            <h2>Why Choose Our Products?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Easy Integration</h3>
+                    <p>Simple setup with just a few lines of code. Integrate in minutes, not days.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Real-time Data</h3>
+                    <p>Get instant insights into your user behavior and engagement metrics.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Scalable</h3>
+                    <p>From startups to enterprises, our solutions grow with your business.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>24/7 Support</h3>
+                    <p>Our expert team is always ready to help you succeed.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h3>Ready to get started?</h3>
+            <p>Choose a plan and start tracking your success today</p>
+            <a href="pricing.html" class="cta-button">View Pricing</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Analytics Test Website</p>
+        </div>
+    </footer>
+
+    <!-- Matomo -->
+    <script>
+        var _paq = window._paq = window._paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+            var u="//localhost/";
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+            _paq.push(['setSiteId', '2']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+    <!-- End Matomo Code -->
+
+    <script src="js/main.js"></script>
+    <script>
+        document.querySelectorAll('.product-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const product = this.getAttribute('data-product');
+                const price = this.getAttribute('data-price');
+                trackEvent('Products', 'Product Viewed', product, parseFloat(price));
+                trackFunnelStep('product_view', product);
+                alert(`Viewing details for: ${product}`);
+            });
+        });
+    </script>
+</body>
+</html>

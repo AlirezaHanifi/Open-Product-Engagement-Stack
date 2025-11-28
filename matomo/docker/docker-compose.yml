@@ -1,0 +1,35 @@
+services:
+    mysql-matomo:
+        image: mysql:9.5.0
+        container_name: mysql-matomo
+        hostname: mysql-matomo
+        environment:
+            MYSQL_ROOT_PASSWORD: rootpassword
+            MYSQL_DATABASE: matomo
+            MYSQL_USER: matomo
+            MYSQL_PASSWORD: matomopassword
+        volumes:
+            - ./volumes/mysql:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+            timeout: 20s
+            retries: 10
+
+    matomo:
+        image: matomo:5.5.2
+        container_name: matomo
+        hostname: matomo
+        environment:
+            MATOMO_DATABASE_HOST: mysql-matomo
+            MATOMO_DATABASE_USERNAME: matomo
+            MATOMO_DATABASE_PASSWORD: matomopassword
+            MATOMO_DATABASE_DBNAME: matomo
+        volumes:
+            - ./volumes/matomo:/var/www/html
+        ports:
+            - "80:80"
+        depends_on:
+            mysql-matomo:
+                condition: service_healthy
